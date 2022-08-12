@@ -101,7 +101,7 @@ const App = () => {
                   <>
                    <NavBar totalItems={cart.total_items}/>
 
-                   <Checkout/>
+                   <Checkout cart={cart}/>
 
                    </>
               }/>
