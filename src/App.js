@@ -9,6 +9,8 @@ import NavBar from './components/Navbar/Navbar';
 
 import Cart from './components/Cart/Cart';
 
+import Checkout from './components/Checkout/Checkout';
+
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 const App = () => {
@@ -92,6 +94,16 @@ const App = () => {
                   handleCartQuantity={handleCartQuantity}
                   /> 
                 </>
+              }/>
+               
+
+              <Route path="/checkout" element={
+                  <>
+                   <NavBar totalItems={cart.total_items}/>
+
+                   <Checkout/>
+
+                   </>
               }/>
            </Routes>
        </div>
