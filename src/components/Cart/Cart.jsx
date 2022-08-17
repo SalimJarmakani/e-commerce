@@ -11,6 +11,8 @@ const Cart = ({cart, handleRemove, handleEmpty, handleCartQuantity}) => {
 
     const classes= useStyles();
 
+    const handleEmptyCart = ()=> handleEmpty();
+
     const EmptyCart = () => (
 
         <Typography variant="subtitle1">
@@ -20,6 +22,7 @@ const Cart = ({cart, handleRemove, handleEmpty, handleCartQuantity}) => {
         </Typography>
     );
 
+    if (!cart.line_items) return 'loading...!';
     const FilledCart = () => (
 
         <>
@@ -33,13 +36,17 @@ const Cart = ({cart, handleRemove, handleEmpty, handleCartQuantity}) => {
                 </Grid>
             ))}
         </Grid>
-
+        
          <div className={classes.CardDetails}>
-            <Typography variant='h4'>
+            <div className={classes.space}/>
+            <Typography variant='h4' >
                 Subtotal: {cart.subtotal.formatted_with_symbol}
             </Typography>
+
+            <div className={classes.space}/>
+
             <div>
-                <Button className={classes.emptyButton} size='large' type="button" variant="contained" color='secondary' onClick={()=>handleEmpty()}>
+                <Button className={classes.emptyButton} size='large' type="button" variant="contained" color='secondary' onClick={()=>handleEmptyCart()}>
                     Empty cart
                 </Button>
 
@@ -51,7 +58,7 @@ const Cart = ({cart, handleRemove, handleEmpty, handleCartQuantity}) => {
         </>
     );
 
-    if (!cart.line_items) return 'loading...!';
+    
   return (
     <Container>
         <div className={classes.toolbar}/>
@@ -59,7 +66,7 @@ const Cart = ({cart, handleRemove, handleEmpty, handleCartQuantity}) => {
             Your Shopping Cart
         </Typography>
 
-        { !cart.line_items.length ? <EmptyCart/> : <FilledCart/>}
+        { !cart.line_items.length ? EmptyCart() : FilledCart()}
     </Container>
   )
 }

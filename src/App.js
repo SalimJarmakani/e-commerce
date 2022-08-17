@@ -19,6 +19,10 @@ const App = () => {
 
   const [cart,setCart]= useState({});
 
+  const [order,setOrder] = useState({});
+
+  const [errorMessage, setErrorMessage]= useState('');
+
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
 
@@ -55,10 +59,30 @@ const App = () => {
   const handleEmpty = async () => {
 
 
-    const {action} = await commerce.cart.empty();
+    const {cart} = await commerce.cart.empty();
 
-    setCart(action);
+    setCart(cart);
   }
+
+  const refreshCart = async () =>
+  {
+
+    const newCart= await commerce.cart.refresh();
+
+    setCart(newCart);
+  }
+  const handleCaptureCheckout= async (checkoutTokenId, newOrder)=> {
+     
+    try {
+      const incomingOrder= await commerce.checkout.capture(checkoutTokenId, newOrder);
+
+      setOrder(incomingOrder);
+
+      refreshCart();
+    } catch (error) {
+      setErrorMessage(error.data.error.message);
+    }
+  };
 
   useEffect(() => {
     
@@ -86,7 +110,7 @@ const App = () => {
 
               <Route path="/cart" element={
                 <>
-                  <NavBar totalItems={cart.total_items} />
+                  <NavBar totalItems={0} />
 
                   <Cart cart={cart} 
                   handleRemove={handleRemove}
@@ -101,7 +125,7 @@ const App = () => {
                   <>
                    <NavBar totalItems={cart.total_items}/>
 
-                   <Checkout cart={cart}/>
+                   <Checkout error={errorMessage} onCaptureCheckout={handleCaptureCheckout} order={order} cart={cart}/>
 
                    </>
               }/>

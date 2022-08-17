@@ -3,8 +3,6 @@ import { Typography, Card, CardActions, CardContent, CardMedia, Button } from '@
 
 import useStyles from './cartStyles';
 const CartItem = ({ item, onRemove, onUpdate }) => {
-
-    console.log(item);
   const classes= useStyles();
   return (
 

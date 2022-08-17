@@ -14,18 +14,29 @@ export default makeStyles((theme) => ({
     },
     [theme.breakpoints.up('xs')]: {
       marginRight: '20px',
+      marginTop:'2%'
     },
   },
   checkoutButton: {
     minWidth: '150px',
+    marginTop:'2%'
   },
   link: {
     textDecoration: 'none',
+
   },
   cardDetails: {
     display: 'flex',
     marginTop: '10%',
+    marginBottom:'10%',
     width: '100%',
     justifyContent: 'space-between',
+
+
   },
+  space: {
+
+    marginBottom:'2%',
+    marginTop: '1%'
+  }
 }));
